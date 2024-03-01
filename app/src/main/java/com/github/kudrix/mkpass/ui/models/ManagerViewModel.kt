@@ -1,4 +1,4 @@
-package com.github.kudrix.mkpass.manager
+package com.github.kudrix.mkpass.ui.models
 
 import androidx.lifecycle.ViewModel
 

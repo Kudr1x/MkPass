@@ -1,10 +1,19 @@
 package com.github.kudrix.mkpass.ui.items
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -18,10 +27,14 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.FilledIconToggleButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedIconToggleButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,26 +44,32 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.kudrix.mkpass.R
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
 fun PasswordItem(){
 
     var isExpanded by remember { mutableStateOf(false)}
-    var vers = 0
+    var isLabel by remember { mutableStateOf(false)}
+    val density = LocalDensity.current
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(4.dp)
-            .height(if (isExpanded) 300.dp else 100.dp),
+            .animateContentSize()
+            .height(if (isExpanded) 200.dp else 100.dp),
+        onClick = {isExpanded = !isExpanded},
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
+            containerColor = MaterialTheme.colorScheme.secondaryContainer
         )
     ) {
         Box (
@@ -58,7 +77,27 @@ fun PasswordItem(){
                 .fillMaxWidth()
                 .height(100.dp)
         ){
-            IconToggleButton(
+            Text(
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .fillMaxHeight(0.3f)
+                    .alpha(if (isExpanded or isLabel) 1f else 0f)
+                    .padding(start = if(isExpanded) 36.dp else 12.dp, top = 12.dp),
+                text = "label",
+                style = MaterialTheme.typography.titleSmall,
+            )
+
+            Icon(
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .padding(12.dp)
+                    .alpha(if (isExpanded) 1f else 0f),
+                painter = painterResource(id = R.drawable.label),
+                contentDescription = "Label"
+            )
+
+
+            FilledIconToggleButton(
                 modifier = Modifier
                     .align(Alignment.TopEnd)
                     .padding(4.dp),
@@ -80,8 +119,8 @@ fun PasswordItem(){
 
             Text(
                 modifier = Modifier
-                    .align(Alignment.TopStart)
-                    .padding(4.dp),
+                    .align(if (isExpanded or isLabel) Alignment.CenterStart else Alignment.TopStart)
+                    .padding(12.dp),
                 text = "test.com",
                 style = MaterialTheme.typography.headlineMedium
             )
@@ -89,12 +128,12 @@ fun PasswordItem(){
             Text(
                 modifier = Modifier
                     .align(Alignment.BottomStart)
-                    .padding(8.dp),
+                    .padding(12.dp),
                 text = "Максимка",
                 style = MaterialTheme.typography.titleMedium
             )
 
-            IconButton(
+            FilledIconButton(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(4.dp),
@@ -109,7 +148,7 @@ fun PasswordItem(){
 
         Box(
             modifier = Modifier
-                .height(200.dp)
+                .height(100.dp)
                 .fillMaxWidth()
                 .padding(8.dp)
         ){
@@ -182,22 +221,6 @@ fun PasswordItem(){
                         contentDescription = "Deleate",
                     )
                 }
-            }
-
-            Card(
-                modifier = Modifier
-                    .height(100.dp)
-                    .fillMaxWidth()
-                    .padding(8.dp)
-                    .align(Alignment.BottomStart),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer
-                )
-            ) {
-                BasicTextField(
-                    value = "",
-                    onValueChange = {}
-                )
             }
         }
     }

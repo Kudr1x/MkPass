@@ -1,4 +1,4 @@
-package com.github.kudrix.mkpass.login
+package com.github.kudrix.mkpass.ui.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -31,13 +31,17 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.github.kudrix.mkpass.R
+import com.github.kudrix.mkpass.ui.models.LoginViewModel
 import kotlinx.coroutines.launch
 
+
 @OptIn(ExperimentalFoundationApi::class)
+@Preview(showBackground = true)
 @Composable
 fun LoginScreen(navController: NavController){
     val loginViewModel = viewModel<LoginViewModel>()

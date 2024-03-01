@@ -1,4 +1,4 @@
-package com.github.kudrix.mkpass.login
+package com.github.kudrix.mkpass.ui.models
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
