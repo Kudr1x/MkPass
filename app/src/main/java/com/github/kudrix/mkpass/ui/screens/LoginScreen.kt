@@ -41,7 +41,6 @@ import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalFoundationApi::class)
-@Preview(showBackground = true)
 @Composable
 fun LoginScreen(navController: NavController){
     val loginViewModel = viewModel<LoginViewModel>()
@@ -70,14 +69,16 @@ fun LoginScreen(navController: NavController){
 
             Spacer(modifier = Modifier.fillMaxHeight(0.04f))
 
-            Text(text = "MkPass", fontSize = 32.sp, color = MaterialTheme.colorScheme.primary)
+            Text(
+                text = "MkPass",
+                style = MaterialTheme.typography.headlineLarge
+            )
 
             Spacer(modifier = Modifier.fillMaxHeight(0.04f))
 
             Text(
                 text = "Deterministic Password Manager" + "\n" + "Use it everywhere",
-                fontSize = 24.sp,
-                color = MaterialTheme.colorScheme.secondary,
+                style = MaterialTheme.typography.headlineSmall,
                 textAlign = TextAlign.Center
             )
         }

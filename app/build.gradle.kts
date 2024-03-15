@@ -23,6 +23,7 @@ android {
         }
     }
 
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -31,6 +32,7 @@ android {
                 "proguard-rules.pro"
             )
         }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -52,8 +54,12 @@ android {
     }
 }
 
+
+
 dependencies {
     implementation (libs.hilt.android)
+
+
     kapt(libs.hilt.android.compiler)
 
     implementation (libs.dagger.android)
@@ -61,9 +67,9 @@ dependencies {
     annotationProcessor (libs.dagger.android.processor)
     annotationProcessor (libs.dagger.compiler)
 
+
     implementation (libs.androidx.room.ktx)
     kapt(libs.androidx.room.compiler)
-
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
