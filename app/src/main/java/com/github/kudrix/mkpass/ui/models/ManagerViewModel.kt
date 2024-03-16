@@ -19,9 +19,16 @@ class ManagerViewModel() : ViewModel(){
     var iconExpandedFabState: Boolean by mutableStateOf(true)
         private set
 
+    var dialogState: Boolean by mutableStateOf(false)
+        private set
+
     @Composable
     fun getPasswords(mainDb: MainDb): State<List<Password>> {
         return mainDb.dao.getAllPasswords().collectAsState(initial = emptyList())
+    }
+
+    fun updateDialogState(){
+        dialogState = !dialogState
     }
 
     fun updateFabState(){
@@ -32,17 +39,17 @@ class ManagerViewModel() : ViewModel(){
         iconExpandedFabState = !iconExpandedFabState
     }
 
-    fun addPassword(mainDb: MainDb) {
+    fun addPassword(mainDb: MainDb, login: String, service: String) {
         viewModelScope.launch {
             mainDb.dao.insertPassword(
                 Password(
                     null,
                     1,
-                    "test",
-                    "test.com",
+                    login,
+                    service,
                     ""
                 ),
-                )
+            )
         }
     }
 }

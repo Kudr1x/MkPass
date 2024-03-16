@@ -50,11 +50,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.kudrix.mkpass.R
+import com.github.kudrix.mkpass.data.Password
 
-@Preview(showBackground = true)
 @Composable
-fun PasswordItem(){
-
+fun PasswordItem(password: Password){
     var isExpanded by remember { mutableStateOf(false)}
     var isLabel by remember { mutableStateOf(false)}
 
@@ -94,7 +93,6 @@ fun PasswordItem(){
                 contentDescription = "Label"
             )
 
-
             FilledIconToggleButton(
                 modifier = Modifier
                     .align(Alignment.TopEnd)
@@ -119,7 +117,7 @@ fun PasswordItem(){
                 modifier = Modifier
                     .align(if (isExpanded or isLabel) Alignment.CenterStart else Alignment.TopStart)
                     .padding(12.dp),
-                text = "test.com",
+                text = password.service,
                 style = MaterialTheme.typography.headlineMedium
             )
 
@@ -127,7 +125,7 @@ fun PasswordItem(){
                 modifier = Modifier
                     .align(Alignment.BottomStart)
                     .padding(12.dp),
-                text = "Максимка",
+                text = password.login,
                 style = MaterialTheme.typography.titleMedium
             )
 
