@@ -1,6 +1,7 @@
 package com.github.kudrix.mkpass
 
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent

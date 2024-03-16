@@ -22,7 +22,7 @@ import com.github.kudrix.mkpass.R
 import com.github.kudrix.mkpass.ui.items.PasswordItem
 
 @Composable
-fun SettingsScreen(navController: NavController){
+fun SettingsScreen(){
     Scaffold (
         content = { innerPadding ->
             LazyColumn(

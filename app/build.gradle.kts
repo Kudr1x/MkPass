@@ -67,6 +67,8 @@ dependencies {
     annotationProcessor (libs.dagger.android.processor)
     annotationProcessor (libs.dagger.compiler)
 
+    implementation (libs.androidx.animation)
+
 
     implementation (libs.androidx.room.ktx)
     kapt(libs.androidx.room.compiler)

@@ -51,14 +51,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.kudrix.mkpass.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
 fun PasswordItem(){
 
     var isExpanded by remember { mutableStateOf(false)}
     var isLabel by remember { mutableStateOf(false)}
-    val density = LocalDensity.current
 
     Card(
         modifier = Modifier

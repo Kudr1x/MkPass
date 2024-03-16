@@ -29,11 +29,11 @@ fun NavGraph(
         }
 
         composable("ManagerScreen") {
-            ManagerScreen(mainDb, navHostController)
+            ManagerScreen(mainDb)
         }
 
         composable("SettingsScreen") {
-            SettingsScreen(navHostController)
+            SettingsScreen()
         }
 
         composable("2FAScreen") {
