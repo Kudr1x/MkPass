@@ -4,6 +4,7 @@ plugins {
 
     id("com.google.dagger.hilt.android")
     id("kotlin-kapt")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -68,6 +69,9 @@ dependencies {
     annotationProcessor (libs.dagger.compiler)
 
     implementation (libs.androidx.animation)
+
+    implementation (libs.androidx.datastore.android)
+    implementation (libs.kotlinx.serialization.json)
 
 
     implementation (libs.androidx.room.ktx)

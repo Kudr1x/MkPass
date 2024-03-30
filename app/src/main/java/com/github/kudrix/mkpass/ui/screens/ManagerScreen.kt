@@ -1,6 +1,7 @@
 package com.github.kudrix.mkpass.ui.screens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -36,6 +37,8 @@ import com.github.kudrix.mkpass.data.MainDb
 import com.github.kudrix.mkpass.data.Password
 import com.github.kudrix.mkpass.ui.items.PasswordItem
 import com.github.kudrix.mkpass.ui.models.ManagerViewModel
+import com.github.kudrix.mkpass.util.settings.DataStoreManager
+import com.github.kudrix.mkpass.util.settings.SettingsData
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
