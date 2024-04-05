@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -31,7 +32,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,25 +39,30 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.github.kudrix.mkpass.R
+import com.github.kudrix.mkpass.data.MainDb
 import com.github.kudrix.mkpass.data.Password
 import com.github.kudrix.mkpass.util.settings.DataStoreManager
 import com.github.kudrix.mkpass.util.settings.SettingsData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
-fun PasswordItem(password: Password){
+fun PasswordItem(password: Password, mainDb: MainDb){
     val clipboard = LocalClipboardManager.current
     val context = LocalContext.current
 
     val dataStoreManager = DataStoreManager(context)
     val settingsState = dataStoreManager.getSettings().collectAsState(initial = SettingsData())
 
-    val passwordViewModel = PasswordItemViewModel()
+    val passwordViewModel = PasswordItemViewModel(mainDb, password)
 
     var isExpanded by remember { mutableStateOf(false)}
     var isLabel by remember { mutableStateOf(false)}
+
 
     Card(
         modifier = Modifier
@@ -66,7 +71,7 @@ fun PasswordItem(password: Password){
             .animateContentSize()
             .height(if (isExpanded) 200.dp else 100.dp),
         onClick = {
-                  isExpanded = !isExpanded
+            isExpanded = !isExpanded
         },
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(
@@ -183,10 +188,16 @@ fun PasswordItem(password: Password){
                 )
 
                 OutlinedTextField(
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.NumberPassword),
+
                     modifier = Modifier
                         .fillMaxWidth(0.5f),
-                    value = "",
-                    onValueChange = {}
+                    value = passwordViewModel.version,
+                    onValueChange = {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            passwordViewModel.changeVersion(it)
+                        }
+                    }
                 )
 
                 Column{
@@ -194,11 +205,16 @@ fun PasswordItem(password: Password){
                         modifier = Modifier
                             .height(24.dp)
                             .width(24.dp),
-                        onClick = { /*TODO*/ }
+                        onClick = {
+                            CoroutineScope(Dispatchers.IO).launch {
+                                passwordViewModel.incrementVersion()
+                            }
+                        }
                     ) {
                         Icon(
                             Icons.Filled.Add,
-                            contentDescription = "Plus")
+                            contentDescription = "Plus"
+                        )
                     }
 
                     Spacer(
@@ -210,7 +226,11 @@ fun PasswordItem(password: Password){
                         modifier = Modifier
                             .height(24.dp)
                             .width(24.dp),
-                        onClick = { /*TODO*/ }
+                        onClick = {
+                            CoroutineScope(Dispatchers.IO).launch {
+                                passwordViewModel.decrementVersion()
+                            }
+                        }
                     ) {
                        Icon(
                            painter = painterResource(id = R.drawable.remove),
@@ -221,7 +241,9 @@ fun PasswordItem(password: Password){
                 IconButton(
                     modifier = Modifier
                         .padding(16.dp),
-                    onClick = { /*TODO*/ }
+                    onClick = {
+                        passwordViewModel.deletePassword(password)
+                    }
                 ) {
                     Icon(
                         Icons.Filled.Delete,

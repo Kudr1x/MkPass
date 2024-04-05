@@ -6,6 +6,4 @@ import kotlinx.serialization.Serializable
 data class SettingsData(
     val passwordLen: Int = 32,
     val masterPasswordHash: String = ""
-
-
 )
