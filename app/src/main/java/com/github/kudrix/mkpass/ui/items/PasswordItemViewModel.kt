@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.text.AnnotatedString
 import androidx.lifecycle.ViewModel
+<<<<<<< Updated upstream
 import com.github.kudrix.mkpass.data.MainDb
 import com.github.kudrix.mkpass.data.Password
 import com.github.kudrix.mkpass.util.PasswordGen
@@ -19,17 +20,36 @@ class PasswordItemViewModel(private val mainDb: MainDb, private val password: Pa
         private set
 
     var isExpanded: Boolean by mutableStateOf(false)
+=======
+import com.github.kudrix.mkpass.di.MainDb
+import com.github.kudrix.mkpass.room.Password
+import com.github.kudrix.mkpass.util.PasswordGen
+import com.github.kudrix.mkpass.util.settings.SettingsData
+
+class PasswordItemViewModel(
+    private val mainDb: MainDb,
+    private val password: Password
+) : ViewModel() {
+    var version: String by mutableStateOf(password.version.toString())
+>>>>>>> Stashed changes
         private set
 
-    var isLabel: Boolean by mutableStateOf(false)
-        private set
-
-    fun updateIsExpanded(state: Boolean){
-        isExpanded = state
+    fun changeVersion(newVersion: String) {
+        try {
+            mainDb.passwordDao.updatePassword(password.copy(version = newVersion.toInt()))
+        }catch (_: Exception){
+            mainDb.passwordDao.updatePassword(password.copy(version = 1))
+        }
     }
 
-    fun updateIsLabel(state: Boolean){
-        isLabel = state
+    fun incrementVersion() {
+        mainDb.passwordDao.updatePassword(password.copy(version = version.toInt() + 1))
+    }
+
+    fun decrementVersion() {
+        if(version.toInt() - 1 > 0){
+            mainDb.passwordDao.updatePassword(password.copy(version = version.toInt() - 1))
+        }
     }
 
     fun changeVersion(newVersion: String) {

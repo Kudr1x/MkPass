@@ -42,8 +42,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.github.kudrix.mkpass.R
+<<<<<<< Updated upstream
 import com.github.kudrix.mkpass.data.MainDb
 import com.github.kudrix.mkpass.data.Password
+=======
+import com.github.kudrix.mkpass.di.MainDb
+import com.github.kudrix.mkpass.room.Password
+import com.github.kudrix.mkpass.ui.models.ManagerViewModel
+>>>>>>> Stashed changes
 import com.github.kudrix.mkpass.util.settings.DataStoreManager
 import com.github.kudrix.mkpass.util.settings.SettingsData
 import kotlinx.coroutines.CoroutineScope
@@ -51,17 +57,29 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
+<<<<<<< Updated upstream
 fun PasswordItem(password: Password, mainDb: MainDb){
+=======
+fun PasswordItem(
+    password: Password,
+    passwordViewModel: PasswordItemViewModel,
+    showDialog: (Password)-> Unit,
+){
+>>>>>>> Stashed changes
     val clipboard = LocalClipboardManager.current
     val context = LocalContext.current
 
     val dataStoreManager = DataStoreManager(context)
     val settingsState = dataStoreManager.getSettings().collectAsState(initial = SettingsData())
 
+<<<<<<< Updated upstream
     val passwordViewModel = PasswordItemViewModel(mainDb, password)
 
     var isExpanded by remember { mutableStateOf(false)}
+=======
+>>>>>>> Stashed changes
     var isLabel by remember { mutableStateOf(false)}
+    var isExpanded by remember { mutableStateOf(false)}
 
 
     Card(
@@ -110,8 +128,8 @@ fun PasswordItem(password: Password, mainDb: MainDb){
                     .align(Alignment.TopEnd)
                     .padding(4.dp),
                 checked = isExpanded,
-                onCheckedChange = {newState ->
-                    isExpanded = newState
+                onCheckedChange = {
+                    isExpanded = it
                 }
             ) {
                 Icon(
@@ -129,7 +147,12 @@ fun PasswordItem(password: Password, mainDb: MainDb){
 
             Text(
                 modifier = Modifier
-                    .align(if (isExpanded or isLabel) Alignment.CenterStart else Alignment.TopStart)
+                    .align(
+                        if (isExpanded or isLabel)
+                            Alignment.CenterStart
+                        else
+                            Alignment.TopStart
+                    )
                     .padding(12.dp),
                 text = password.service,
                 style = MaterialTheme.typography.headlineMedium
@@ -234,7 +257,8 @@ fun PasswordItem(password: Password, mainDb: MainDb){
                     ) {
                        Icon(
                            painter = painterResource(id = R.drawable.remove),
-                           contentDescription = "Minus")
+                           contentDescription = "Minus"
+                       )
                     }
                 }
 
@@ -242,12 +266,17 @@ fun PasswordItem(password: Password, mainDb: MainDb){
                     modifier = Modifier
                         .padding(16.dp),
                     onClick = {
+<<<<<<< Updated upstream
                         passwordViewModel.deletePassword(password)
+=======
+                        managerViewModel.updateDeleteDialogState()
+                        showDialog(password)
+>>>>>>> Stashed changes
                     }
                 ) {
                     Icon(
                         Icons.Filled.Delete,
-                        contentDescription = "Deleate",
+                        contentDescription = "Delete",
                     )
                 }
             }

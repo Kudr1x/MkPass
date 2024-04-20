@@ -1,11 +1,17 @@
 package com.github.kudrix.mkpass.ui.screens
 
+<<<<<<< Updated upstream
 import android.widget.Toast
+=======
+>>>>>>> Stashed changes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+<<<<<<< Updated upstream
 import androidx.compose.foundation.lazy.LazyColumn
+=======
+>>>>>>> Stashed changes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
@@ -15,7 +21,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+<<<<<<< Updated upstream
 import androidx.compose.runtime.mutableIntStateOf
+=======
+>>>>>>> Stashed changes
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
@@ -27,8 +36,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.kudrix.mkpass.util.settings.DataStoreManager
 import com.github.kudrix.mkpass.util.settings.SettingsData
+<<<<<<< Updated upstream
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+=======
+>>>>>>> Stashed changes
 import kotlinx.coroutines.launch
 
 @Preview
@@ -38,7 +50,10 @@ fun SettingsScreen(){
     val dataStoreManager = DataStoreManager(context)
     val coroutine = rememberCoroutineScope()
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     val settingsState = dataStoreManager.getSettings().collectAsState(initial = SettingsData())
     var sliderPosition by remember { mutableFloatStateOf(settingsState.value.passwordLen.toFloat()) }
 
@@ -59,7 +74,13 @@ fun SettingsScreen(){
                 Column {
                     Text(
                         modifier = Modifier
+<<<<<<< Updated upstream
                             .padding(start = 20.dp),
+=======
+                            .padding(
+                                start = 20.dp
+                            ),
+>>>>>>> Stashed changes
                         text = "Password length settings",
                         style = MaterialTheme.typography.bodySmall
                     )

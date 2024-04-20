@@ -4,10 +4,11 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.github.kudrix.mkpass.data.MainDb
+import com.github.kudrix.mkpass.ui.models.PasswordListViewModel
 import com.github.kudrix.mkpass.ui.screens.AuthenticationScreen
 import com.github.kudrix.mkpass.ui.screens.LoginScreen
 import com.github.kudrix.mkpass.ui.screens.ManagerScreen
@@ -15,7 +16,6 @@ import com.github.kudrix.mkpass.ui.screens.SettingsScreen
 
 @Composable
 fun NavGraph(
-    mainDb: MainDb,
     navHostController: NavHostController,
     paddingValues: PaddingValues
 ) {
@@ -29,7 +29,8 @@ fun NavGraph(
         }
 
         composable("ManagerScreen") {
-            ManagerScreen(mainDb)
+            val passwordListViewModel: PasswordListViewModel = viewModel()
+            ManagerScreen(passwordListViewModel = passwordListViewModel)
         }
 
         composable("SettingsScreen") {
