@@ -6,7 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.github.kudrix.mkpass.di.MainDb
+import com.github.kudrix.mkpass.data.MainDb
 import com.github.kudrix.mkpass.ui.navigation.BottomNavigationBar
 import com.github.kudrix.mkpass.ui.navigation.NavGraph
 
@@ -21,7 +21,7 @@ fun MainScreen(mainDb: MainDb) {
             }
         }
     ){
-        NavGraph(mainDb = mainDb, navHostController = navController, it)
+        NavGraph(navController, it, mainDb)
     }
 }
 

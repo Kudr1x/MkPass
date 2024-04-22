@@ -8,7 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import com.github.kudrix.mkpass.di.MainDb
+import com.github.kudrix.mkpass.data.MainDb
 import com.github.kudrix.mkpass.ui.screens.MainScreen
 import com.github.kudrix.mkpass.ui.theme.MkPassTheme
 import dagger.hilt.android.AndroidEntryPoint

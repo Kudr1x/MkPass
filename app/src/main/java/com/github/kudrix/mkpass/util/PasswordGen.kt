@@ -2,7 +2,7 @@ package com.github.kudrix.mkpass.util
 
 import android.content.Context
 import androidx.compose.runtime.State
-import com.github.kudrix.mkpass.room.Password
+import com.github.kudrix.mkpass.data.Password
 import com.github.kudrix.mkpass.util.settings.SettingsData
 import kotlin.random.Random
 

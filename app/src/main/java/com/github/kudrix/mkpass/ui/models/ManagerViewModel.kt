@@ -8,21 +8,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.kudrix.mkpass.di.MainDb
-import com.github.kudrix.mkpass.room.Password
+import com.github.kudrix.mkpass.data.MainDb
+import com.github.kudrix.mkpass.data.Password
 import kotlinx.coroutines.launch
 
 class ManagerViewModel() : ViewModel(){
 
     private var passwordForDelete: Password? = null
 
-    fun setPasswordForDelete(password: Password, index: Int){
+    fun setPasswordForDelete(password: Password){
         passwordForDelete = password
     }
 
     fun deletePassword(mainDb: MainDb){
         if (passwordForDelete != null) {
-            mainDb.passwordDao.deletePassword(passwordForDelete!!)
+            mainDb.dao.deletePassword(passwordForDelete!!)
         }
 
         passwordForDelete = null
@@ -60,7 +60,7 @@ class ManagerViewModel() : ViewModel(){
 
     @Composable
     fun getPasswords(mainDb: MainDb): State<List<Password>> {
-        return mainDb.passwordDao.getAllPasswords().collectAsState(initial = emptyList());
+        return mainDb.dao.getAllPasswords().collectAsState(initial = emptyList());
     }
 
     fun updateAddPasswordDialogState(){
@@ -77,7 +77,7 @@ class ManagerViewModel() : ViewModel(){
 
     fun addPassword(mainDb: MainDb, login: String, service: String) {
         viewModelScope.launch {
-            mainDb.passwordDao.insertPassword(
+            mainDb.dao.insertPassword(
                 Password(
                     null,
                     1,
