@@ -18,7 +18,7 @@ object Module {
         return Room.databaseBuilder(
             app,
             MainDb::class.java,
-            "passwords.db"
+            "Passwords.db"
         ).build()
     }
 }

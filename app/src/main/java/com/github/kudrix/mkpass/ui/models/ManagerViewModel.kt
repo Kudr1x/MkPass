@@ -15,9 +15,18 @@ import kotlinx.coroutines.launch
 class ManagerViewModel() : ViewModel(){
 
     private var passwordForDelete: Password? = null
+    private var passwordForDialog: Password? = null
 
     fun setPasswordForDelete(password: Password){
         passwordForDelete = password
+    }
+
+    fun setPasswordForDialog(password: Password){
+        passwordForDialog = password
+    }
+
+    fun getPasswordForDialog(): Password?{
+        return passwordForDialog
     }
 
     fun deletePassword(mainDb: MainDb){
@@ -60,7 +69,9 @@ class ManagerViewModel() : ViewModel(){
 
     @Composable
     fun getPasswords(mainDb: MainDb): State<List<Password>> {
-        return mainDb.dao.getAllPasswords().collectAsState(initial = emptyList());
+        val list =  mainDb.dao.getAllPasswords().collectAsState(initial = emptyList());
+
+        return list;
     }
 
     fun updateAddPasswordDialogState(){
@@ -77,15 +88,12 @@ class ManagerViewModel() : ViewModel(){
 
     fun addPassword(mainDb: MainDb, login: String, service: String) {
         viewModelScope.launch {
-            mainDb.dao.insertPassword(
-                Password(
-                    null,
-                    1,
-                    login,
-                    service,
-                    ""
-                ),
-            )
+            val currentPassword = Password(null, 1, login, service, "")
+            mainDb.dao.insertPassword(currentPassword)
         }
+    }
+
+    fun updatePassword() {
+
     }
 }

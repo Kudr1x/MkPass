@@ -21,20 +21,10 @@ class MainActivity : ComponentActivity() {
     lateinit var mainDb: MainDb
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-
-
         setContent {
             MkPassTheme {
                 MainScreen(mainDb)
             }
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content)) { view, insets ->
-            val bottom = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
-            view.updatePadding(bottom = bottom)
-            insets
         }
     }
 }

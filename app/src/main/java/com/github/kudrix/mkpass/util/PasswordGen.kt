@@ -16,7 +16,7 @@ class PasswordGen(var password: Password, var context: Context, settingsState: S
     private val random = Random(seed.hashCode())
 
     fun generatePassword(): String {
-        val list: List<Any> = List(settings.value.passwordLen) { allCharacters[(random.nextInt(0, allCharacters.size))] }
+        val list: List<Any> = List(password.len!!) { allCharacters[(random.nextInt(0, allCharacters.size))] }
         var password = ""
         for(i in list) password += i
 

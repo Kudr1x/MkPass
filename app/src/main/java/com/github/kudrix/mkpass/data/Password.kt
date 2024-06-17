@@ -10,5 +10,6 @@ data class Password(
     val version: Int? = 1,
     val login: String,
     val service: String,
-    val label: String? = ""
+    val label: String? = "",
+    var len: Int? = 32
 )

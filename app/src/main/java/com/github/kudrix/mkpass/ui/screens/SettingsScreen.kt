@@ -41,7 +41,6 @@ fun SettingsScreen(){
     var sliderPosition by remember { mutableFloatStateOf(settingsState.value.passwordLen.toFloat()) }
 
     Scaffold (
-
         content = { innerPadding ->
             Column(
                 modifier = Modifier
